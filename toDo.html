@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To do List</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+      }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    #todo-input {
+      width: 200px;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #add-btn {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #todo-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    #todo-list li {
+      background-color: #f9f9f9;
+      padding: 10px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #todo-list li.completed {
+      text-decoration: line-through;
+    }
+
+    .remove-btn {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+      /* body {
+        background-color: #565655;
+      }
+      .container {
+        height: max-content;
+        width: 50%;
+        background-color: #ffff;
+        margin: 4rem auto;
+        padding: 2rem;
+        border-radius: 1rem;
+        display: grid;
+        place-items: center;
+      }
+      .input-cont {
+        display: flex;
+      }
+      p {
+        color: red;
+      }
+      ul {
+        width: 80%;
+        margin: auto;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+      }
+      ul li {
+        list-style: none;
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>To-Do List</h1>
+      <input type="text" id="todo-input" placeholder="Add a new task">
+      <button id="add-btn">Add Task</button>
+      <ul id="todo-list"></ul>
+  </div>
+    <!-- <div class="container">
+      <h1>To Do List</h1>
+      <p id="error-msg"></p>
+      <div class="input-cont">
+        <input type="text" id="inputBox" />
+        <button id="add">Add Task</button>
+      </div>
+      <ul id="list-holder">
+
+      </ul>
+    </div> -->
+    <script>
+      // Get references to elements
+      const input = document.getElementById('todo-input');
+      const addButton = document.getElementById('add-btn');
+      const todoList = document.getElementById('todo-list');
+
+      window.addEventListener('DOMContentLoaded', loadItem)
+      // Function to add a new task
+      function addTask() {
+          const inputValue = input.value.trim();
+          
+          if (inputValue === '') {
+              alert('Please enter a task');
+              return;
+          }
+
+          // Create new list item
+          const li = document.createElement('li');
+          li.textContent = inputValue;
+
+          // Create remove button
+          const removeButton = document.createElement('button');
+          removeButton.textContent = 'Remove';
+          removeButton.classList.add('remove-btn');
+          
+          // Append the remove button to the task
+          li.appendChild(removeButton);
+
+          // Add task to the list
+          todoList.appendChild(li);
+          saveItem()
+          // Clear input field
+          input.value = '';
+
+          // Toggle task completion
+          li.addEventListener('click', () => {
+              li.classList.toggle('completed');
+              // saveItem()
+          });
+
+          // Remove task on clicking remove button
+          removeButton.addEventListener('click', () => {
+              todoList.removeChild(li);
+              // saveItem()
+            });
+            
+        // saveItem()
+      }
+
+      // Add task when clicking the button
+      addButton.addEventListener('click', addTask);
+
+      // Add task when pressing Enter key
+      input.addEventListener('keypress', (event) => {
+          if (event.key === 'Enter') {
+              addTask();
+          }
+      });
+
+      function saveItem(){
+        // const tasks = [];
+        // todoList.querySelectorAll('li').forEach(li => {
+        //     tasks.push({
+        //         text: li.firstChild.textContent,
+        //         completed: li.classList.contains('completed')
+        //     });
+        // });
+        localStorage.setItem('data', todoList.innerHTML);
+      }
+      function loadItem(){
+        todoList.innerHTML = localStorage.getItem('data');
+        // const storedTasks = localStorage.getItem('tasks');
+        // if (storedTasks) {
+        //     const tasks = JSON.parse(storedTasks);
+        //     tasks.forEach(task => {
+        //         addTask(task.text, task.completed);
+        //     });
+        // }
+      }
+      localStorage.clear()
+
+      // let input = document.getElementById("inputBox");
+      // let button = document.getElementById("add");
+      // let listContainer = document.getElementById("list-holder");
+      // let errorBox = document.getElementById("error-msg");
+
+      // function addTask() {
+      //   let value = input.value;
+      //   if (!value) {
+      //     errorBox.innerHTML = "Please Enter a Task";
+      //     return;
+      //   }
+
+      //   if (value) {
+      //     let li = document.createElement("li");
+      //     let checkbox = document.createElement("input");
+      //     checkbox.type = "checkbox";
+      //     let taskText = document.createTextNode(value);
+      //     li.appendChild(checkbox);
+      //     li.appendChild(taskText);
+      //     if (li) {
+      //       let del = document.createElement("button");
+      //       del.textContent = "Delete";
+      //       listContainer.appendChild(del);
+      //       del.onclick = () => removeitem(li)
+      //     }
+      //     listContainer.appendChild(li);
+      //   }
+
+      //   input.value = "";
+      // }
+
+      // function removeitem(e){
+      //   let item = e.target.parentNode;
+      //   listContainer.removeChild(item);
+      //   console.log("button clicked")
+      // }
+
+      // input.addEventListener("focus", () => {
+      //   errorBox.innerHTML = "";
+      // });
+
+      // button.addEventListener("click", addTask);
+    </script>
+  </body>
+</html>

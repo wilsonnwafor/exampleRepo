@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    body{
+      height: 100vh;
+      width: 100%;
+      display: grid;
+      place-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="searchbar">
+      <input type="text" id="search" placeholder="Search for a city...">
+      <button id="search-btn">Search</button>
+    </div>
+    <div class="weather-condition">
+      <h2 id="city-name">Tokyo</h2>
+      <h1 id="weather">Cloudy</h1>
+    </div>
+    <div class="weather-details">
+      <h3 id="humidity">Humidity: 50%</h3>
+      <h3 id="wind-speed">Wind Speed: 30km/h</h3>
+      <h3 id="temperature">Temperature: 20°C</h3>
+    </div>
+  </div>
+
+
+  <script>
+    const searchBox = document.getElementById('search');
+    const searchBtn = document.getElementById('search-btn');
+    const cityName = document.getElementById('city-name');
+    const weather = document.getElementById('weather');
+    const humidity = document.getElementById('humidity');
+    const wind = document.getElementById('wind-speed');
+    const temp = document.getElementById('temperature');
+
+    const API_key = '9bc19e0bbedabe3484e0af42d29ffcea'
+    const URL = 'https://api.openweathermap.org/data/2.5/weather?&units=metric&q='
+
+    async function getWeather(city){
+      let res = await fetch(URL + city + `&appid=${API_key}`);
+      let data = await res.json();
+
+      if(res.status === 404){
+        alert('Please Enter a Valid City');
+      }else{
+        cityName.innerHTML = data.name;
+        weather.innerHTML = data.weather[0].main;
+        humidity.innerHTML = "Humidity: " + data.main.humidity + "%";
+        wind.innerHTML = "Wind Speed: " + data.wind.speed + "km/h";
+        temp.innerHTML = "Temperature: " + Math.round(data.main.temp) + "°C";
+      }
+      
+      console.log(Math.round(data.main.temp));
+    };
+
+    searchBtn.addEventListener('click', function (){
+      getWeather(searchBox.value);
+    });
+  </script>
+</body>
+</html>

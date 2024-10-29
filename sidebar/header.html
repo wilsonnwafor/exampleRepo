@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>header</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+    header{
+      height: 6rem;
+      width: 100%;
+      background-color: #d1d1d3;
+      position: fixed;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      box-shadow: .1rem .1rem 1rem rgba(0, 0, 0, 0.12);
+    }
+    header img{
+      width: 80px;
+      border-radius: 50%;
+    }
+    header ul{
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+    }
+    header ul li{
+      font-size: 20px;
+      cursor: pointer;
+      position: relative;
+    }
+    header ul li::before{
+      content: '';
+      height: 2px;
+      width: 0;
+      background-color: teal;
+      position: absolute;
+      bottom: 0;
+      transition: all 0.5s linear;
+    }
+    header ul li:hover::before{
+      width: 100%;
+    }
+    header ul li.active::after{
+      content: '';
+      height: 2px;
+      width: 100%;
+      background-color: teal;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    .fa-bars,
+    .fa-x{
+      font-size: 2rem;
+      display: none;
+      cursor: pointer;
+    }
+
+    /* media query for side bar and to display the icons */
+    @media (max-width: 650px) {
+      header ul{
+        flex-direction: column;
+        background-color: #000000;
+        color: #fff;
+        width: 60%;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: -100%;
+        transition: all .3s linear;
+      }
+      .fa-bars,
+      .fa-x{
+        display: block;
+      }
+      header ul.show{
+        left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/download (1).jpeg" alt="">
+
+    <ul id="nav-bar">
+      <li class="nav-link active">HOME</li>
+      <li class="nav-link">ABOUT</li>
+      <li class="nav-link">CONTACT</li>
+    </ul>
+    <i class="fa-solid fa-bars" id="ham-menu"></i>
+  </header>
+
+  <script>
+    // this is for the active links and all
+    const navlinks = document.querySelectorAll('.nav-link');
+
+    navlinks.forEach((item) => {
+      item.addEventListener('click', function(){
+        document.querySelector('.active')?.classList.remove('active');
+        item.classList.add('active');
+      });
+    });
+
+
+    // this is for switching the hamburger button and toggling the sidebar open and close
+    const ham = document.getElementById('ham-menu');
+    const nav = document.getElementById('nav-bar');
+    
+    ham.addEventListener('click', function(){
+      nav.classList.toggle('show');
+      this.classList.toggle('fa-x');
+    });
+    
+  </script>
+</body>
+</html>

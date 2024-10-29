@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body{
+      height: 100vh;
+      background-color: #c2c2c2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container{
+      height: auto;
+      width: 80%;
+      background-color: dodgerblue;
+      color: #fff;
+      box-shadow: .1rem .1rem 1rem rgba(0, 0, 0, 0.15);
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+    }
+    button{
+      border: none;
+      color: #fff;
+      padding: .5rem 1rem;
+      background-color: #c4c4c4;
+      margin: 3rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    <p id="text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur fugit ab quisquam reprehenderit molestiae facere saepe quas, dignissimos veniam similique! Odio odit quae, laborum natus ullam explicabo? Reprehenderit, rem eligendi.</p>
+    <button id="btn">New Joke</button>
+  </div>
+
+  <script>
+    const btn = document.querySelector('#btn');
+    const text = document.querySelector('#text');
+
+    async function getJoke(){
+      let URL = 'https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Pun,Spooky,Christmas?blacklistFlags=political,racist,sexist&type=single'
+
+      let data = await fetch(URL);
+      let response = await data.json();
+
+      text.innerHTML = response.joke      
+
+
+    };
+    
+    btn.addEventListener('click', function(){
+      getJoke();
+    });
+
+
+
+  </script>
+</body>
+</html>

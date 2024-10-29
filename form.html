@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Form</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+    body{
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f2f3f4;
+    }
+    #form{
+      height: 70%;
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      background-color: #ffff;
+      border-radius: 1rem;
+      padding: 0 2rem;
+    }
+    .input-control{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      
+    }
+    .input-control input{
+      padding: .5rem;
+      border: .15rem solid #000000;
+    }
+    .input-control input:focus{
+      outline: none;
+    }
+
+    .input-control .msg-box.error{
+      color: #ff0000;
+    }
+    #btn{
+      padding: .5rem 1rem;
+      border: none;
+      color: #ffff;
+      background-color: #1A73E8;
+      border-radius: .3rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <form action="/" id="form">
+    <h1>SIGN IN</h1>
+
+    <div class="input-control">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username">
+      <p id="name-box" class="msg-box"></p>
+    </div>
+
+    <div class="input-control">
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email">
+      <p id="email-box" class="msg-box"></p>
+    </div>
+
+    <div class="input-control">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password">
+      <p id="password-box" class="msg-box"></p>
+    </div>
+
+    <input type="submit" value="Submit" id="btn">
+  </form>
+
+
+
+
+  <script>
+    const form = document.getElementById('form');
+    const username = document.getElementById('username');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const namebox = document.getElementById('name-box');
+    const emailbox = document.getElementById('email-box');
+    const passwordbox = document.getElementById('password-box');
+
+
+    function validateForm(){
+      namebox.innerHTML = '';
+      passwordbox.innerHTML = '';
+      emailbox.innerHTML = '';
+
+      if(username.value === ''){
+        namebox.classList.add('error');
+        namebox.textContent = 'Username is required';
+        username.style.border= '.15rem solid red';
+        return false
+      }else{
+        namebox.classList.remove('error');
+        namebox.textContent = '';
+        username.style.border= '.15rem solid green';
+      }
+
+      const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+      if (email.value === "") {
+        emailbox.classList.add('error');
+        emailbox.innerHTML = "Email is required";
+        email.style.border= '.15rem solid red';
+        return false;
+      } else if (!email.value.match(emailPattern)) {
+        emailbox.classList.add('error');
+        emailbox.innerHTML = "Please enter a valid email";
+        return false;
+      }else{
+        emailbox.classList.remove('error');
+        emailbox.textContent = '';
+        email.style.border= '.15rem solid green';
+      }
+
+      if(password.value === ''){
+        passwordbox.classList.add('error');
+        passwordbox.textContent = 'Password is required';
+        password.style.border= '.15rem solid red';
+        return false
+      }else{
+        passwordbox.classList.remove('error');
+        passwordbox.textContent = '';
+        password.style.border= '.15rem solid green';
+      }
+      return true
+    };
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      if(validateForm()){
+        alert('Form submitted successfully!');
+      };
+    });
+  </script>
+</body>
+</html>

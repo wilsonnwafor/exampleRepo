@@ -1,0 +1,75 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.header{
+  height: 80px;
+  width: 100%;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+}
+.header .nav{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+}
+.header .nav li{
+  /* margin-right: 20px; */
+  margin-left: 20px;
+}
+
+.container{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 200px;
+  padding-right: 200px;
+  /* background: rgba(70, 133, 40, 0.3); */
+  /* opacity: 0; */
+  background: linear-gradient(to top right,blue, red);
+
+}
+.container .text{
+  font-size: 60px;
+  color: white;
+  font-weight: 800;
+  text-align: center;
+}
+.container2{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  background:linear-gradient(to right,black, rgba(0, 0, 0, 0.3)), url(download.jpeg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.container2 .contact-text{
+  font-size: 60px;
+  color: white;
+  font-weight: 800;
+  text-align: center;
+}
+.container2 .contact-btn{
+  padding: 10px;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background: linear-gradient(to top right, purple, red);
+  cursor: pointer;
+}

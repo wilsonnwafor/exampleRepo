@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack Overflow</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+    body{
+      height: 100vh;
+      width: 100%;
+      display: grid;
+      place-items: center;
+      background-color: #c2c2c2;
+    }
+    .container{
+      height: 600px;
+      width: 60%;
+      margin: auto;
+      display: grid;
+      place-items: center;
+      background-color: #59bffa;
+      padding: 3rem 0;
+    }
+    .question-container{
+      width: 90%;
+      margin: 0 auto;
+      height: 90%;
+      background-color: #fff;
+      border-radius: .7rem;
+      overflow-y: auto;
+      padding-right: 3px;
+    }
+    .question-container::-webkit-scrollbar{
+      width: 3px;
+    }
+    .question-container::-webkit-scrollbar-track{
+      background: #888; /* Color of the scrollbar track */
+      border-radius: .7rem;
+    }
+    .question-container::-webkit-scrollbar-thumb{
+      background: #000; /* Color of the scrollbar thumb */
+      border-radius: .7rem;
+    }
+    .question-container li{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding:2rem 1rem;
+    }
+    
+    .question-container li:not(:first-child){
+      border: .1rem solid #c2c2c2;
+    }
+  </style>
+</head>
+<body>
+  
+<div class="container">
+  <h1>QUESTIONS</h1>
+  <ul class="question-container" id="cont">
+    
+  </ul>
+</div>
+
+<script>
+  const cont =  document.getElementById('cont');
+
+  const URL = 'https://api.stackexchange.com/2.3/questions?order=desc&sort=activity&site=stackoverflow';
+
+  async function getQuestion () {
+    let res = await fetch(URL);
+    let data = await res.json();
+
+    console.log(data.items[8].answer_count);
+    let new_data = data.items
+
+    items = ''
+
+    for(i = 0; i < new_data.length; i++){
+      console.log(new_data[i].answer_count)
+      items +=
+      "<li>" 
+        + `<a href="${new_data[i].link}">` + new_data[i].title + "</a>" 
+        + "<p>" + "Answers: " + new_data[i].answer_count + "</p>"
+      + "</li>"
+
+    };
+    cont.innerHTML = items;
+  };
+
+  getQuestion();
+
+</script>
+</body>
+</html>
